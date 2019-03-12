@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+     {% load staticfiles %}
+     {% include "head.html" %}
+    <body class="cm-no-transition cm-2-navbar">
+         {% include "menu.html" %}
+        {% include "header.html" %}
+        <div id="global">
+            <style>.demo-btn .btn{margin:5px}</style>
+            <div class="container-fluid">
+                <div class="row cm-fix-height">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                             
+                            <div class="panel-body">
+                                <form  method="POST" action="" class="form-horizontal">
+								     <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label"><code>* 服务类型</code></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control"  placeholder="web类型"  name="type" value="web类型">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label"><code>* 环境类型</code></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" onkeyup="this.value=this.value.replace(/\s+/g,'')"  name="envtype" placeholder="test|develop|product"  required="required">
+                                        </div>
+                                    </div>
+								    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label"><code>* 项目</code></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" onkeyup="this.value=this.value.replace(/\s+/g,'')"  name="projectname"  placeholder="项目名"  required="required">
+                                        </div>
+                                    </div>
+									
+									 <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label"><code>* 集群</code></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" onkeyup="this.value=this.value.replace(/\s+/g,'')"  name="cluster"  placeholder="集群名"  required="required">
+                                        </div>
+                                    </div>
+									<div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label"><code>* 服务</code></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control"  onkeyup="this.value=this.value.replace(/\s+/g,'')" name="servername" placeholder="nginx" value='nginx' required="required">
+                                        </div>
+                                    </div>
+									<div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label"><code>* IP</code></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control"  onkeyup="this.value=this.value.replace(/\s+/g,'')" name="ipaddr" placeholder="业务服务器IP"  required="required">
+                                        </div>
+                                    </div>
+									
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label"><code>* 域名</code></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control"  onkeyup="this.value=this.value.replace(/\s+/g,'')" name="domain" placeholder="域名vhost (同一环境类型，不可重名)"  required="required">
+                                        </div>
+                                    </div>									
+
+                                    <div class="form-group" style="margin-bottom:0">
+                                        <div class="col-sm-offset-2 col-sm-10 text-right">
+										    <button type="submit" id='entry' onclick="formSubmit()" class="btn btn-primary">保存</button>
+											 <a href="javascript:history.back(-1);" class="btn btn-default">取消</a>                                            
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+				{% include "footer.html" %}
+         </div>
+		 <!--SUBMIT-->
+		<script type="text/javascript">
+			function formSubmit() {
+				document.getElementById("entry").submit()
+			}
+		</script>
+          {% include "scripts.html" %}
+    </body>
+</html>

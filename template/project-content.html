@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+      {% load staticfiles %}
+     {% include "head.html" %}
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/built-editor.css' %}"/>
+    <body class="cm-no-transition cm-1-navbar">
+        {% include "menu.html" %}
+        {% include "header.html" %}
+        <div id="global">
+            <div class="container-fluid">
+                <div class="panel panel-default">
+                    <div class="panel-heading">编辑配置</div>
+					<form action='' method='POST' id="frmSave">
+					{%for conf in response %}
+                    <div class="panel-body" STYLE="HEIGHT:500PX;">
+                        <div class="form-group">
+                            <label>域名</label>
+                            <input type="text" class="form-control" placeholder="{{conf.vhosts}}" readonly="readonly">
+                        </div>
+                        <label>配置内容</label> 
+						 <pre id='editor'>{{conf.confText}}</pre>
+						 <textarea name="configText" style="display:none" ></textarea>		
+                        <div class="form-group text-right" style="margin-top:20px">
+                            <button type="button" onclick="formSubmit()" class="btn btn-primary">保存</button>
+					 	    <a href="javascript:history.back(-1);" class="btn btn-danger">返回</a>						
+                        </div>
+                    </div>
+					{%endfor%}
+					</form> 
+				 
+                </div>
+            </div>
+            {% include "footer.html" %}
+		</div>
+          {% include "scripts.html" %}
+	
+		<script src="{% static 'assets/js/aceEdit/ace.js' %}" type="text/javascript" charset="utf-8"></script> 	
+		<!--ace module-->
+ 		 <script>
+				var editor = ace.edit("editor");
+				editor.setTheme("ace/theme/monokai");
+				editor.getSession().setMode("ace/mode/drools"); // 一定要使用定义好的Mode			
+		</script> 
+ 
+		<!--提交-->
+		<script type="text/javascript">
+			function formSubmit() {
+				$("[name=configText]").val(editor.getValue());
+				$("#frmSave").submit();
+				//document.getElementById("").submit()
+			}
+		</script>
+		   
+    </body>
+</html>

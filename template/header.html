@@ -1,0 +1,43 @@
+        <header id="cm-header">
+            <nav class="cm-navbar cm-navbar-primary">
+                <div class="btn btn-primary md-menu-white hidden-md hidden-lg" data-toggle="cm-menu"></div>
+                <div class="cm-flex">
+                    <h1>组态</h1> 
+                    <form id="cm-search" action="index.html" method="get">
+                        <input type="search" name="q" autocomplete="off" placeholder="Search...">
+                    </form>
+                </div>
+                <div class="pull-right">
+                    <div id="cm-search-btn" class="btn btn-primary md-search-white" data-toggle="cm-search"></div>
+                </div>
+                <div class="dropdown pull-right">
+                    <button class="btn btn-primary md-account-circle-white" data-toggle="dropdown"></button>
+                    <ul class="dropdown-menu">
+                        <li class="disabled text-center">
+                            <a style="cursor:default;"><strong>{{request.user}}</strong></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i>用户中心</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-cog"></i>设置</a>
+                        </li>
+                        <li>
+                            <a href="login.html"><i class="fa fa-fw fa-sign-out"></i>退出登录</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <nav class="cm-navbar cm-navbar-default cm-navbar-slideup">
+                <div class="cm-flex">
+                    <div class="cm-breadcrumb-container">
+                        <ol class="breadcrumb">
+                            <li><a href="../../">仪表盘</a></li>
+                            <li><a href="/config/project/">配置管理</a></li>
+                            <li class="active">{{env}}</li>
+                        </ol>
+                    </div>
+                </div>
+            </nav>
+        </header>

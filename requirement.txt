@@ -1,4 +1,4 @@
-Django==1.11.8
+Django==1.11.9
 requests
 python-etcd==0.4.5
 MySQL-python
