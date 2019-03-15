@@ -83,3 +83,7 @@ reload_cmd = "/opt/openresty/nginx/sbin/nginx -s reload"
 #### 4、部署代码
 
 #### 5、修改setting.py配置
+
+
+#### 6、效果展示
+![image](https://github.com/573009114/confd-manager/blob/master/zhanshi.jpg)
