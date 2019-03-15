@@ -1,18 +1,34 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import render
-
-from viewConf import (viewProConf,viewDevConf,
-                     viewTestConf,defaultProJectConf,findProjectConf,
-                     channgeProJectConf,addProJectConf,delProJectConf)
-
+from viewConf import *
 from etcdConf import *
 from django.contrib.auth.decorators import login_required
+import json
 
 @login_required
 def dashboard(req):
     return HttpResponse('默认首页，还没想好放点啥~')
 
+def serverList(req):
+    if req.method == 'GET':
+        response=viewsServer()
+        return render(req,'server-list.html',{'response':response})
+
+def serverAdd(req):
+    if req.method == 'POST':
+        serverip=req.POST.get('serverip')
+        response=addServer(serverip)
+        return HttpResponse('<script type="text/javascript">alert("添加完成");location.href="/config/server/"</script>')
+    return render(req,'server-add.html')
+
+def serverDel(req):
+    id=req.GET.get('pid')
+    response=delServer(pid=id)
+    return HttpResponse('<script type="text/javascript">alert("记录删除");location.href="/config/server/"</script>')
+
+
+########################################################
 @login_required
 def viewConfig(req):
     if req.method == 'GET':
@@ -49,15 +65,15 @@ def confPush(req):
     response=findProjectConf(pid=id)
     keyName=response['keyName']
     value=response['confText']
-#    print keyName
-    result=etcdClient().writeValue(keyName,value)
-    return HttpResponse('<script type="text/javascript">alert("推送触发成功");location.href="javascript:history.back(-1);"</script>')
-
+    etcdClient().writeValue(keyName,value)
+    return HttpResponse('<script type="text/javascript">alert("推送完成");location.href="javascript:history.back(-1);"</script>')
 
 @login_required
 def projectAdd(req):
      response=''
      env='新增项目'
+     serverlist=viewsServer()
+
      if req.method == 'POST':
          typed=req.POST.get('type')
          env_type=req.POST.get('envtype')
@@ -65,11 +81,12 @@ def projectAdd(req):
          serverName=req.POST.get('servername')
          vhost=req.POST.get('domain')
          cluster=req.POST.get('cluster')
-         ipaddr=req.POST.get('ipaddr')
-         keyname=('/%s/%s/%s/%s/%s' %(env_type,serverName,cluster,ipaddr,vhost))
-         response=addProJectConf(typed,env_type,projectName,serverName,vhost,keyname)
+         sid=req.POST.getlist('sid[]')
+         keyname=('/%s/%s/%s/%s' %(env_type,serverName,cluster,vhost))
+         kid=addProJectConf(typed,env_type,projectName,serverName,vhost,keyname)
+         addHostid(sid,kid)
          return HttpResponse('<script type="text/javascript">alert("项目添加完成");location.href="/config/project/add"</script>')
-     return render(req,'project-add.html',{'env':env})
+     return render(req,'project-add.html',{'env':env,'serverlist':serverlist})
 
 
 @login_required
@@ -78,10 +95,9 @@ def projectDel(req):
     obtainKey=findProjectConf(pid=id)
     try:
         keyName=obtainKey['keyName']
-        print keyName
         delEtcd=etcdClient().delKey(keyName)
         response=delProJectConf(pid=id)
-    except UnboundLocalError,e:
+    except:
         response=delProJectConf(pid=id)
     return HttpResponse('<script type="text/javascript">alert("记录删除");location.href="/config/project/"</script>')
 

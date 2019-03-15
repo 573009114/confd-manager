@@ -22,3 +22,8 @@ class etcdClient:
 
         return result
 
+
+if __name__ == '__main__':
+    keyName=u'/test/nginx/touchweb/a.xcar.com.cn'
+    Value=u'{server}'
+    etcdClient().writeValue(keyName,Value)
