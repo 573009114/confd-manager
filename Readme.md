@@ -1,8 +1,8 @@
 ## 部署教程
 
 
-#### 架构图  （ps:图是盗的，拿来占个位置，思路和这个图类似。）
-![image](https://images2015.cnblogs.com/blog/305504/201611/305504-20161128231227318-454123414.png)
+#### 逻辑架构图 
+![image](https://github.com/573009114/confd-manager/blob/master/QQ%E6%88%AA%E5%9B%BE20190315174002.jpg)
 
 #### 1、安装python2.7
 ```
