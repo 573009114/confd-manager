@@ -66,7 +66,10 @@ reload_cmd = "/opt/openresty/nginx/sbin/nginx -s reload"
 
 ```
 
- 
+```
+注： 可以将agent 里面的数据库地址修改，并放到对应安装了confd和nginx的服务器，执行即可，会自动启动confd和生成模板。
+```
+##### 启动 （可选项） 
 ```
 启动 confd 并从etcd里面读取信息
 /opt/confd/bin/confd -watch -backend etcd -node=http://127.0.0.1:2379 -confdir /opt/confd/
