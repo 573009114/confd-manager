@@ -1,4 +1,4 @@
 Django
 requests
-python-etcd==0.4.5
+python-etcd
 MySQL-python
