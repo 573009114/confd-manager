@@ -8,7 +8,12 @@
 ```
 安装方式略。可以选择centos7.x版本
 
+
 安装mariadb mariadb-server mariadb-devel
+
+安装python-devel ,python-etcd
+
+安装Cython，
 
 安装MySQL-python.x86_64 模块
 ```
