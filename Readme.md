@@ -3,7 +3,7 @@ ps:代码还没写完，目前仅供参考学习使用。
 
 
 #### 逻辑架构图 
-![image](https://github.com/573009114/confd-manager/blob/master/QQ%E6%88%AA%E5%9B%BE20190315174002.jpg)
+![image](https://github.com/573009114/confd-manager/blob/master/pic/jiagoutu.jpg)
 
 #### 1、安装python2.7
 ```
@@ -87,4 +87,4 @@ reload_cmd = "/opt/openresty/nginx/sbin/nginx -s reload"
 
 
 #### 6、效果展示
-![image](https://github.com/573009114/confd-manager/blob/master/zhanshi.jpg)
+![image](https://github.com/573009114/confd-manager/blob/master/pic/zhanshi.jpg)
