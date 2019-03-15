@@ -6,7 +6,7 @@ from etcdConf import *
 from django.contrib.auth.decorators import login_required
 import json
 
-@login_required
+#@login_required
 def dashboard(req):
     return HttpResponse('默认首页，还没想好放点啥~')
 
@@ -29,7 +29,7 @@ def serverDel(req):
 
 
 ########################################################
-@login_required
+#@login_required
 def viewConfig(req):
     if req.method == 'GET':
         typed=req.GET.get('typed')
@@ -45,7 +45,7 @@ def viewConfig(req):
         return render(req,'project-type.html',{'response':response,'env':env})
 
 
-@login_required
+#@login_required
 def projectEdit(req):
     id=req.GET.get('pid')
     env='项目编辑'
@@ -59,7 +59,7 @@ def projectEdit(req):
     return render(req,'project-content.html',{'response':response,'env':env})
 
 
-@login_required
+#@login_required
 def confPush(req):
     id=req.GET.get('pid')
     response=findProjectConf(pid=id)
@@ -68,7 +68,7 @@ def confPush(req):
     etcdClient().writeValue(keyName,value)
     return HttpResponse('<script type="text/javascript">alert("推送完成");location.href="javascript:history.back(-1);"</script>')
 
-@login_required
+#@login_required
 def projectAdd(req):
      response=''
      env='新增项目'
@@ -89,7 +89,7 @@ def projectAdd(req):
      return render(req,'project-add.html',{'env':env,'serverlist':serverlist})
 
 
-@login_required
+#@login_required
 def projectDel(req):
     id=req.GET.get('pid')
     obtainKey=findProjectConf(pid=id)

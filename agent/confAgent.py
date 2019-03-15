@@ -5,7 +5,7 @@ import os,sys
 
 class mysqlClient:
     def __init__(self):
-        self.db=MySQLdb.connect("127.0.0.1", "root", "", "confd", charset='utf8' )
+        self.db=MySQLdb.connect("10.20.5.239", "confduser", "confd123", "confd", charset='utf8' )
         self.cursor = self.db.cursor()
         self.ip = socket.gethostbyname(socket.gethostname())
 
@@ -65,10 +65,10 @@ reload_cmd = "/opt/openresty/nginx/sbin/nginx -s reload"
 
 
 def main():
-    os.system('rm -fr //opt/confd/conf.d/*.toml')
-    os.system('rm -fr //opt/confd/templates/*.tmpl')
+    os.system('mkdir /opt/confd/conf.d/ && rm -fr /opt/confd/conf.d/*.toml')
+    os.system('mkdir /opt/confd/templates/ && rm -fr /opt/confd/templates/*.tmpl')
     templateConf().Toml()
     templateConf().Tmpl()
-    os.system('/opt/confd/bin/confd -watch -backend etcd -node=http://127.0.0.1:2379 -confdir /opt/confd/ &')
+    os.system('/opt/confd/bin/confd -watch -backend etcd -node=http://192.168.44.138:2379 -confdir /opt/confd/')
 if __name__ == '__main__':
     main()
