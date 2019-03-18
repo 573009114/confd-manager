@@ -88,3 +88,7 @@ reload_cmd = "/opt/openresty/nginx/sbin/nginx -s reload"
 
 #### 6、效果展示
 ![image](https://github.com/573009114/confd-manager/blob/master/pic/zhanshi.jpg)
+
+
+#### 7、用户权限表
+![image](https://github.com/573009114/confd-manager/blob/master/pic/user.jpg)
