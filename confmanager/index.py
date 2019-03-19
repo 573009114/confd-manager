@@ -18,13 +18,13 @@ def serverList(req):
 def serverAdd(req):
     if req.method == 'POST':
         serverip=req.POST.get('serverip')
-        response=addServer(serverip)
+        response=projectConf(serverip=serverip).addServer()
         return HttpResponse('<script type="text/javascript">alert("添加完成");location.href="/config/server/"</script>')
     return render(req,'server-add.html')
 
 def serverDel(req):
     id=req.GET.get('pid')
-    response=delServer(pid=id)
+    response=projectConf(pid=id).delServer()
     return HttpResponse('<script type="text/javascript">alert("记录删除");location.href="/config/server/"</script>')
 
 
@@ -33,14 +33,15 @@ def serverDel(req):
 def viewConfig(req):
     if req.method == 'GET':
         typed=req.GET.get('typed')
+
         if typed == 'product':
-            response=viewProConf()
+            response=viewsConf(typed).envConf()
             env='线上环境'
         elif typed == 'develop':
-            response=viewDevConf()
+            response=viewsConf(typed).envConf()
             env='研发环境'
         else:
-            response=viewTestConf()
+            response=viewsConf(typed).envConf()
             env='测试环境'
         return render(req,'project-type.html',{'response':response,'env':env})
 
@@ -50,11 +51,12 @@ def projectEdit(req):
     id=req.GET.get('pid')
     env='项目编辑'
     if req.method == 'GET':
-        defaultContent=defaultProJectConf(pid=id)
+        # defaultContent=defaultProJectConf(pid=id)
+        defaultContent=projectConf(pid=id).defaultProJectConf()
         response=list(defaultContent)
     elif req.method == 'POST':
         confContent=req.POST.get('configText')
-        channgeContent=channgeProJectConf(id,confContent)
+        channgeContent=projectConf(pid=id,confContent=confContent).channgeProJectConf()
         return HttpResponse('<script type="text/javascript">alert("信息修改完成");location.href="javascript:history.back(-1);"</script>')
     return render(req,'project-content.html',{'response':response,'env':env})
 
@@ -62,7 +64,7 @@ def projectEdit(req):
 #@login_required
 def confPush(req):
     id=req.GET.get('pid')
-    response=findProjectConf(pid=id)
+    response=projectConf(pid=id).findProjectConf()
     keyName=response['keyName']
     value=response['confText']
     etcdClient().writeValue(keyName,value)
@@ -83,7 +85,8 @@ def projectAdd(req):
          cluster=req.POST.get('cluster')
          sid=req.POST.getlist('sid[]')
          keyname=('/%s/%s/%s/%s' %(env_type,serverName,cluster,vhost))
-         kid=addProJectConf(typed,env_type,projectName,serverName,vhost,keyname)
+         #kid=editProject().addProJectConf(typed,env_type,projectName,serverName,vhost,keyname)
+         kid=projectConf(typed=typed,env_type=env_type,projectName=projectName,serverName=serverName,vhost=vhost,keyname=keyname).addProJectConf()
          addHostid(sid,kid)
          return HttpResponse('<script type="text/javascript">alert("项目添加完成");location.href="/config/project/add"</script>')
      return render(req,'project-add.html',{'env':env,'serverlist':serverlist})
@@ -92,12 +95,12 @@ def projectAdd(req):
 #@login_required
 def projectDel(req):
     id=req.GET.get('pid')
-    obtainKey=findProjectConf(pid=id)
+    obtainKey=projectConf(pid=id).findProjectConf()
     try:
         keyName=obtainKey['keyName']
         delEtcd=etcdClient().delKey(keyName)
-        response=delProJectConf(pid=id)
+        response=projectConf(pid=id).delProJectConf()
     except:
-        response=delProJectConf(pid=id)
+        response=projectConf(pid=id).delProJectConf()
     return HttpResponse('<script type="text/javascript">alert("记录删除");location.href="/config/project/"</script>')
 

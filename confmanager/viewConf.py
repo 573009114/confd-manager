@@ -1,66 +1,73 @@
 # -*- coding: utf-8 -*-
 from models import KeyList,Servers,HostAlias
-from django.http import JsonResponse,HttpResponse
+
+from django.core import serializers
 import json
 
-def viewProConf():
-    data=KeyList.objects.filter(envtype='product').values('id','projectName','confText','vhosts','serverName','envtype','typed')
-    return data
 
-def viewDevConf():
-    data=KeyList.objects.filter(envtype='develop').values('id','projectName','confText','vhosts','serverName','envtype','typed')
-    response=HttpResponse(json.dumps(list(data), default=lambda obj: obj.__dict__), content_type='application/json')
-    return data
+class viewsConf:
+    def __init__(self,typed):
+        self.typed=typed
 
-def viewTestConf():
-    data=KeyList.objects.filter(envtype='test').values('id','projectName','confText','vhosts','serverName','envtype','typed')
-    response=HttpResponse(json.dumps(list(data), default=lambda obj: obj.__dict__), content_type='application/json')
-    return data
-
-# 增、删、改
-def defaultProJectConf(pid):
-    default=[]
-    response=KeyList.objects.filter(id=pid).values('confText','vhosts')
-    for k in response:
-        default.append(k)
-    return default
-
-def addProJectConf(typed,env_type,projectName,serverName,vhost,keyname):
-    response=KeyList.objects.create(typed=typed,envtype=env_type,projectName=projectName,serverName=serverName,vhosts=vhost,keyname=keyname)
-    response.save()
-    return response.id
-
-def delProJectConf(pid):
-    KeyList.objects.filter(id=pid).delete()
-    return bool(True)
-
-def channgeProJectConf(pid,confContent):
-    KeyList.objects.filter(id=pid).update(confText=confContent)
-    response='配置修改完成'
-    return response
-
-def findProjectConf(pid):
-    response=list(KeyList.objects.filter(id=pid).values('confText','keyname')).pop()
-    keyName=response['keyname']
-    confText=response['confText']
-    result={'keyName':keyName,'confText':confText}
-    return result
+    def envConf(self):
+        data=KeyList.objects.filter(envtype='%s' %self.typed).values('id','projectName','confText','vhosts','serverName','envtype','typed')
+        return data  
 
 
-# Servers 表操作
-def addServer(serverip):
-    response=Servers.objects.create(servearip=serverip)
-    response.save()
-    return response.id
+class projectConf:
+    def __init__(self,**kwargs):
+        self.id=kwargs.get('pid')
+        self.typed=kwargs.get('typed')
+        self.env_type=kwargs.get('env_type')
+        self.projectName=kwargs.get('projectName')
+        self.serverName=kwargs.get('serverName')
+        self.vhost=kwargs.get('vhost')
+        self.keyname=kwargs.get('keyname')
+        self.confContent=kwargs.get('confContent')
+        self.serverip=kwargs.get('serverip')
+
+    def defaultProJectConf(self):
+        default=[]
+        response=KeyList.objects.filter(id=self.id).values('confText','vhosts')
+        for k in response:
+            default.append(k)
+        return default
+
+    def channgeProJectConf(self):
+        KeyList.objects.filter(id=self.id).update(confText= self.confContent)
+        response='配置修改完成'
+        return response
+
+    def addProJectConf(self):
+        response=KeyList.objects.create(typed=self.typed,envtype=self.env_type,projectName=self.projectName,serverName=self.serverName,vhosts=self.vhost,keyname=self.keyname)
+        response.save()
+        return response.id
+
+    def delProJectConf(self):
+        KeyList.objects.filter(id=self.id).delete()
+        return bool(True)
+
+    def findProjectConf(self):
+        response=list(KeyList.objects.filter(id=self.id).values('confText','keyname')).pop()
+        keyName=response['keyname']
+        confText=response['confText']
+        result={'keyName':keyName,'confText':confText}
+        return result
+
+    # Servers 表操作
+    def addServer(self):
+        response=Servers.objects.create(servearip=self.serverip)
+        response.save()
+        return response.id
+
+    def delServer(self):
+        Servers.objects.filter(id=self.id).delete()
+        return bool(True)
+
 
 def viewsServer():
     response=Servers.objects.all().values('id','servearip')
     return response
-
-def delServer(pid):
-    Servers.objects.filter(id=pid).delete()
-    return bool(True)
-
 
 # HostAlias 表操作
 def addHostid(sid,kid):
@@ -71,3 +78,7 @@ def addHostid(sid,kid):
     except:
         response='执行失败'
     return response
+
+
+if __name__ == '__main__':
+    editProject(1111,2222,'1234213fewef').defaultProJectConf()
