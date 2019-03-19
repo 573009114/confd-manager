@@ -4,7 +4,7 @@ from django.shortcuts import render
 from viewConf import *
 from etcdConf import *
 from django.contrib.auth.decorators import login_required
-import json
+import json,etcd
 
 #@login_required
 def dashboard(req):
@@ -67,7 +67,10 @@ def confPush(req):
     response=projectConf(pid=id).findProjectConf()
     keyName=response['keyName']
     value=response['confText']
-    etcdClient().writeValue(keyName,value)
+    try:
+        etcdClient().writeValue(keyName,value)
+    except etcd.EtcdConnectionFailed,e:
+        return HttpResponse('etcd 连接失败，请检查服务是否正常')
     return HttpResponse('<script type="text/javascript">alert("推送完成");location.href="javascript:history.back(-1);"</script>')
 
 #@login_required
