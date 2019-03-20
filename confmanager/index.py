@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from viewConf import *
 from etcdConf import *
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 import json,etcd
 
 @login_required
@@ -109,4 +110,3 @@ def projectDel(req):
     except:
         response=projectConf(pid=id).delProJectConf()
     return HttpResponse('<script type="text/javascript">alert("记录删除");location.href="/config/project/"</script>')
-
