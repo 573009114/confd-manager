@@ -82,9 +82,23 @@ reload_cmd = "/opt/openresty/nginx/sbin/nginx -s reload"
 ```
 
 #### 4、部署代码
-
+```
+git clone https://github.com/573009114/confd-manager.git
+```
 #### 5、修改setting.py配置
+```
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'confd',
+         'USER':'confduser',
+         'PASSWORD':'confd123',
+         'HOST':'127.0.0.1',
+         'PORT':'3306',
+     }
+}
 
+```
 
 #### 6、效果展示
 ![image](https://github.com/573009114/confd-manager/blob/master/pic/zhanshi.jpg)
