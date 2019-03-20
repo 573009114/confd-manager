@@ -142,4 +142,4 @@ STATICFILES_DIRS = (
 
 
 #MEDIA_ROOT = '/images/'
-LOGIN_URL = '/admin/'
+LOGIN_URL = '/login/'
