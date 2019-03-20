@@ -11,7 +11,10 @@ class viewsConf:
 
     def envConf(self):
         data=KeyList.objects.filter(envtype='%s' %self.typed).values('id','projectName','confText','vhosts','serverName','envtype','typed')
-        return data  
+        return data 
+    def envAll(self):
+        data=KeyList.objects.all().values('id','projectName','confText','vhosts','serverName','envtype','typed')
+        return data
 
 
 class projectConf:

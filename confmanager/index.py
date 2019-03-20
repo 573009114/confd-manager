@@ -40,9 +40,12 @@ def viewConfig(req):
         elif typed == 'develop':
             response=viewsConf(typed).envConf()
             env='研发环境'
-        else:
+        elif typed == 'test':
             response=viewsConf(typed).envConf()
             env='测试环境'
+        else:
+            response=viewsConf(typed).envAll()
+            env='所有环境'
         return render(req,'project-type.html',{'response':response,'env':env})
 
 
