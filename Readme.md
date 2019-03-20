@@ -1,5 +1,5 @@
 ## 部署教程
-ps:代码还没写完,正在持续更新中，目前仅供参考学习使用。
+# 欢迎大家指正，我也会随时提交，并迭代。 感谢！
 
 
 #### 逻辑架构图 
@@ -90,5 +90,4 @@ reload_cmd = "/opt/openresty/nginx/sbin/nginx -s reload"
 ![image](https://github.com/573009114/confd-manager/blob/master/pic/zhanshi.jpg)
 
 
-#### 7、用户权限表
-![image](https://github.com/573009114/confd-manager/blob/master/pic/user.jpg)
+ 
