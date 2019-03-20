@@ -23,4 +23,27 @@ def login(req):
 def logout(req):
     auth.logout(req)
     return HttpResponseRedirect('/login/')
+
+# 修改密码模块
+def channgePwd(req):
+    if req.method == 'POST':
+        username = req.POST.get('username')
+        old_password=req.POST.get('oldpasswd')
+        new_password1=req.POST.get('newpassword')
+        repeat_password=req.POST.get('repeatpassword')
+        response={}
+        if repeat_password != new_password1:
+            response['data']='您的确认密码和新密码不匹配'
+        else:
+            new_password=new_password1
+            user = auth.authenticate(username=username, password=old_password)
+            if user is not None and user.is_active:
+                user.set_password(new_password)
+                user.save()
+                response['data']='密码修改成功'     
+            else:
+                response['data']='原密码错误'
+        return render(req,'channge.html',{'response':response})
+    else:
+        return render(req,'channge.html')
     

@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^$',views.dashboard,name='dashboard'),
     url(r'^login/$',account.login,name='login'),
     url(r'^logout/$',account.logout,name='logout'),
+    url(r'^channgepwd/$',account.channgePwd,name='channgepwd'),
     url(r'^config/project/$',index.viewConfig,name='edit'),
     url(r'^config/project/del',index.projectDel,name='del'),
     url(r'^config/project/add',index.projectAdd,name='add'),
