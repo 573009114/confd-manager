@@ -10,7 +10,7 @@ class mysqlClient:
         self.ip = socket.gethostbyname(socket.gethostname())
 
     def viewSQL(self):
-        sql="SELECT keyname FROM omds_keylist WHERE id IN ( SELECT kid_id FROM omds_hostalias WHERE sid_id IN ( SELECT id FROM omds_servers WHERE servearip LIKE '%s' ) );" % self.ip
+        sql="SELECT keyname FROM omds_servers c LEFT JOIN omds_hostalias a ON a.sid_id = c.id LEFT JOIN omds_keylist b ON a.kid_id = b.id WHERE servearip = '%s';" % self.ip
         self.cursor.execute(sql)
         result=self.cursor.fetchall()
         response=[]
