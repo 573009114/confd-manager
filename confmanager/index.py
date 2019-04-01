@@ -8,14 +8,12 @@ from django.views.decorators.csrf import csrf_exempt
 import json,etcd
 
 @login_required
-def dashboard(req):
-    return HttpResponse('默认首页，还没想好放点啥~')
-
 def serverList(req):
     if req.method == 'GET':
         response=viewsServer()
         return render(req,'server-list.html',{'response':response})
 
+@login_required
 def serverAdd(req):
     if req.method == 'POST':
         serverip=req.POST.get('serverip')
@@ -23,6 +21,8 @@ def serverAdd(req):
         return HttpResponse('<script type="text/javascript">alert("添加完成");location.href="/config/server/"</script>')
     return render(req,'server-add.html')
 
+
+@login_required
 def serverDel(req):
     id=req.GET.get('pid')
     response=projectConf(pid=id).delServer()
