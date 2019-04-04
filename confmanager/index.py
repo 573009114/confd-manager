@@ -9,7 +9,7 @@ import json,etcd
 import datetime
 
 def global_env():
-    Version=datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    Version=datetime.datetime.now().strftime("v%Y%m%d%H%M%S")
     return Version
 
 @login_required
@@ -108,6 +108,7 @@ def projectAdd(req):
     return render(req,'project-add.html',{'env':env,'serverlist':serverlist})
 
 # 项目关联
+@login_required
 def projectEdit(req):
     kid=req.GET.get('pid')
     serverlist=viewsServer()
