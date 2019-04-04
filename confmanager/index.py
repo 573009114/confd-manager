@@ -12,13 +12,13 @@ def global_env():
     Version=datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     return Version
 
-#@login_required
+@login_required
 def serverList(req):
     if req.method == 'GET':
         response=viewsServer()
         return render(req,'server-list.html',{'response':response})
 
-#@login_required
+@login_required
 def serverAdd(req):
     if req.method == 'POST':
         serverip=req.POST.get('serverip')
@@ -27,7 +27,7 @@ def serverAdd(req):
     return render(req,'server-add.html')
 
 
-#@login_required
+@login_required
 def serverDel(req):
     id=req.GET.get('pid')
     response=projectConf(pid=id).delServer()
@@ -35,7 +35,7 @@ def serverDel(req):
 
 
 ########################################################
-#@login_required
+@login_required
 def viewConfig(req):
     if req.method == 'GET':
         typed=req.GET.get('typed')
@@ -59,7 +59,7 @@ def viewConfig(req):
         return render(req,'project-type.html',{'response':response,'env':env})
 
 # 编辑配置
-#@login_required
+@login_required
 def projectEdit(req):
     id=req.GET.get('pid')
     serverlist=viewsServer()
@@ -74,7 +74,7 @@ def projectEdit(req):
     return render(req,'project-content.html',{'response':response,'env':env,'serverlist':serverlist})
 
 # 推送配置到etcd
-#@login_required
+@login_required
 def confPush(req):
     id=req.GET.get('pid')
     response=projectConf(pid=id).findProjectConf()
@@ -87,7 +87,7 @@ def confPush(req):
     return HttpResponse('<script type="text/javascript">alert("推送完成");location.href="javascript:history.back(-1);"</script>')
 
 # 项目新增
-#@login_required
+@login_required
 def projectAdd(req):
     env='新增项目'
     serverlist=viewsServer()
@@ -108,7 +108,7 @@ def projectAdd(req):
     return render(req,'project-add.html',{'env':env,'serverlist':serverlist})
 
 # 项目删除
-#@login_required
+@login_required
 def projectDel(req):
     id=req.GET.get('pid')
     obtainKey=projectConf(pid=id).findProjectConf()
@@ -121,6 +121,7 @@ def projectDel(req):
     return HttpResponse('<script type="text/javascript">alert("记录删除");location.href="/config/project/"</script>')
 
 # 项目配置回滚
+@login_required
 def projectRollback(req):
     historyVersions=req.GET.get('versions')
     env={'name':'项目回滚编辑'}
