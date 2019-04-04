@@ -9,36 +9,26 @@
         <div id="global"></BR></BR> 
             <div class="container-fluid">
                 <div class="panel panel-default">
+				
                     <div class="panel-heading">编辑配置</div>
 					<form action='' method='POST' id="frmSave">
 				    
                     <div class="panel-body">
                         <div class="form-group">
                             <label>域名</label>
-                            <input type="text" class="form-control" placeholder="{{response.DEFAULT.1.vhosts}}" readonly="readonly">	
+                            <input type="text" class="form-control" placeholder="{{response.VERSION.1.vhosts}}" readonly="readonly">
+                             						
                         </div>
                         <label>配置内容</label> 
-						<pre id='editor'>{{response.DEFAULT.0.confText}}</pre>
+						<pre id='editor' >{{response.DEFAULT.0.confText }}</pre>
 						<textarea name="configText" style="display:none" ></textarea>
-                      
-                        <!--版本编辑区-->
-						<ul class="nav nav-pills" role="tablist"> 
-							 <li role="presentation" class="dropdown">
-							 <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">历史版本<span class="caret"></span> </a>
-									<ul id="menu1" class="dropdown-menu" role="menu" >	    
-									    {%for version in response.DEFAULT.2%}
-										<li role="presentation"><a href="/config/project/rollback?versions={{version.version}}">{{version.version}}</a></li> 
-										{%endfor%}
-									</ul>
-							 </li>
-						</ul>
                     
-						<!--end-->
+                 
                         <div class="form-group text-right" style="margin-top:20px">
                             <button type="button" onclick="formSubmit()" class="btn btn-primary">保存</button>
 					 	    <a href="javascript:history.back(-1);" class="btn btn-danger">返回</a>						
                         </div>
-						  
+						
                     </div>
 				 
 				 

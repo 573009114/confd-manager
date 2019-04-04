@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^config/project/del',index.projectDel,name='del'),
     url(r'^config/project/add',index.projectAdd,name='add'),
     url(r'^config/project/channge',index.projectEdit,name='channge'),
+    url(r'^config/project/rollback',index.projectRollback,name='rollback'),
     url(r'^config/project/push',index.confPush,name='push'),
     url(r'^config/server/$',index.serverList,name='serverlist'),
     url(r'^config/server/add',index.serverAdd,name='serveradd'),
