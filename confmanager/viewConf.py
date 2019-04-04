@@ -8,14 +8,15 @@ import json
 class viewsConf:
     def __init__(self,typed):
         self.typed=typed
+      
  
     def envConf(self):
         data=KeyList.objects.filter(envtype='%s' %self.typed).values('id','projectName','vhosts','serverName','envtype','typed')
         return data 
+
     def envAll(self):
         data=KeyList.objects.all().values('id','projectName','vhosts','serverName','envtype','typed')
         return data
-
 
 class projectConf:
     def __init__(self,**kwargs):
@@ -49,6 +50,11 @@ class projectConf:
         response=KeyList.objects.create(typed=self.typed,envtype=self.env_type,projectName=self.projectName,serverName=self.serverName,vhosts=self.vhost,keyname=self.keyname)
         response.save()
         return response.id
+
+    # 更新项目
+    def updateProJectConf(self):
+        response=KeyList.objects.filter(id=self.id).values('id')
+        return response
 
     # 删除项目
     def delProJectConf(self):
@@ -98,6 +104,15 @@ class projectConf:
     def fixedVersion(self):
         VersionId.objects.filter(version=self.version).values('kid_id','confText')
 
+class EditConf:
+    def __init__(self,pid):
+        self.id=pid
+
+    def projectconfig(self):
+        data=KeyList.objects.filter(id=self.id).values('id','projectName','vhosts','serverName','envtype','typed').first()
+        return data
+
+
 
 
 # 服务IP列表
@@ -113,4 +128,17 @@ def addHostid(sid,kid):
            response.save()
     except:
         response='执行失败'
+    return response
+
+# HostAlias 关联ip操作
+def updateHostid(sid,kid):
+    try:
+        find_id=HostAlias.objects.filter(kid_id=kid).values('kid_id','sid_id')
+        for k_id in find_id:
+            HostAlias.objects.filter(kid_id=k_id['kid_id']).delete()
+        for serializers in sid:
+            response=HostAlias.objects.create(sid_id=serializers,kid_id=kid)
+    except:
+        for serializers in sid:
+            response=HostAlias.objects.create(sid_id=serializers,kid_id=kid)
     return response

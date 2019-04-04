@@ -23,9 +23,10 @@
 										<th><code>类型</code></th>
                                         <th><code>项目名</code></th>
                                         <th><code>服务名</code></th>
-                                        <th><code>vhost</code></th>
-										<th><code>发步</code></th>
-										<th><code>操作</code></th>										
+                                        <th><code>域名</code></th>
+										<th><code>*发布</code></th>
+										<th><code>配置文件</code></th>	
+                                        <th><code>映射</code></th>										
 										<th><code>删除?</code></th>										
                                     </tr>
                                 </thead>
@@ -37,8 +38,8 @@
                                         <td>{{i.serverName}}</td>
                                         <td>{{i.vhosts}}</td>
 										<td><a href="/config/project/push/?pid={{i.id}}" class="btn btn-yellow btn-xs">配置发布</A></td>
-										<td><a href="/config/project/channge?pid={{i.id}}" class="btn btn-primary btn-xs" >编辑</A></td>
-                                       									
+										<td><a href="/config/project/channge?pid={{i.id}}" class="btn btn-primary btn-xs" >编辑配置</A></td>
+                                       	<td><a href="/config/project/edit?pid={{i.id}}" class="btn btn-primary btn-xs" >关联IP</A></td>								
 										<td><a href="/config/project/del/?pid={{i.id}}" class="btn btn-default btn-xs" onclick="return del()">删除</A></td>
 										
                                     </tr>

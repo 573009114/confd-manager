@@ -60,10 +60,10 @@ def viewConfig(req):
 
 # 编辑配置
 @login_required
-def projectEdit(req):
+def projectChannge(req):
     id=req.GET.get('pid')
     serverlist=viewsServer()
-    env={'name':'项目编辑','version':global_env()}
+    env={'name':'编辑配置','version':global_env()}
     if req.method == 'GET':
         defaultContent=projectConf(pid=id).defaultProJectConf()
         response={'DEFAULT':defaultContent}
@@ -106,6 +106,19 @@ def projectAdd(req):
         addHostid(sid,kid)
         return HttpResponse('<script type="text/javascript">alert("项目添加完成");location.href="/config/project/add"</script>')
     return render(req,'project-add.html',{'env':env,'serverlist':serverlist})
+
+# 项目关联
+def projectEdit(req):
+    kid=req.GET.get('pid')
+    serverlist=viewsServer()
+    response=EditConf(pid=kid).projectconfig()
+    env={'name':'项目关联','version':global_env()}
+    if req.method =='POST': 
+        sid=req.POST.getlist('sid[]')
+        updateHostid(sid,kid)
+        return HttpResponse('<script type="text/javascript">alert("IP更新完成");location.href="javascript:history.back(-1);"</script>')
+    return render(req,'project-edit.html',{'response':response,'serverlist':serverlist,'env':env})
+
 
 # 项目删除
 @login_required
