@@ -47,9 +47,13 @@ class projectConf:
 
     # 添加项目
     def addProJectConf(self):
-        response=KeyList.objects.create(typed=self.typed,envtype=self.env_type,projectName=self.projectName,serverName=self.serverName,vhosts=self.vhost,keyname=self.keyname)
-        response.save()
-        return response.id
+        ChkKey=KeyList.objects.filter(keyname=self.keyname).values('id')
+        if ChkKey:
+            return bool(False)
+        else:
+            response=KeyList.objects.create(typed=self.typed,envtype=self.env_type,projectName=self.projectName,serverName=self.serverName,vhosts=self.vhost,keyname=self.keyname)
+            response.save()
+            return response.id
 
     # 更新项目
     def updateProJectConf(self):

@@ -10,7 +10,7 @@ class KeyList(models.Model):
     projectName=models.CharField(max_length=128)
     serverName=models.CharField(max_length=32)
     vhosts=models.CharField(max_length=128)
-    keyname=models.CharField(max_length=128)
+    keyname=models.CharField(max_length=128,unique=True)
 
     class Meta:
         db_table = 'omds_keylist'

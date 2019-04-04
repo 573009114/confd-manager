@@ -103,10 +103,13 @@ def projectAdd(req):
         cluster=req.POST.get('cluster')
         sid=req.POST.getlist('sid[]')
         keyname=('/%s/%s/%s/%s' %(env_type,serverName,cluster,vhost))
-        kid=projectConf(typed=typed,env_type=env_type,projectName=projectName,serverName=serverName,vhost=vhost,keyname=keyname).addProJectConf()
-        # 关联keyid与serverid
-        addHostid(sid,kid)
-        return HttpResponse('<script type="text/javascript">alert("项目添加完成");location.href="/config/project/add"</script>')
+        kid=projectConf(typed=typed,env_type=env_type,projectName=projectName,serverName=serverName,vhost=vhost,keyname=keyname).addProJectConf()   
+        if kid:
+            # 关联keyid与serverid
+            addHostid(sid,kid)
+            return HttpResponse('<script type="text/javascript">alert("项目添加完成");location.href="/config/project/add"</script>')
+        else:
+            return HttpResponse('<script type="text/javascript">alert("项目重复,添加失败");location.href="/config/project/add"</script>')
     return render(req,'project-add.html',{'env':env,'serverlist':serverlist})
 
 # 项目关联
@@ -119,7 +122,7 @@ def projectEdit(req):
     if req.method =='POST': 
         sid=req.POST.getlist('sid[]')
         updateHostid(sid,kid)
-        return HttpResponse('<script type="text/javascript">alert("IP更新完成");location.href="javascript:history.back(-1);"</script>')
+        return HttpResponse('<script type="text/javascript">alert("IP关联更新成功");location.href="javascript:history.back(-1);"</script>')
     return render(req,'project-edit.html',{'response':response,'serverlist':serverlist,'env':env})
 
 
@@ -130,7 +133,7 @@ def projectDel(req):
     obtainKey=projectConf(pid=id).findProjectConf()
     try:
         keyName=obtainKey['keyName']
-        delEtcd=etcdClient().delKey(keyName)
+        #delEtcd=etcdClient().delKey(keyName)
         response=projectConf(pid=id).delProJectConf()
     except:
         response=projectConf(pid=id).delProJectConf()
