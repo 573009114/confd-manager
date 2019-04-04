@@ -65,7 +65,7 @@ def viewConfig(req):
 def projectChannge(req):
     id=req.GET.get('pid')
     serverlist=viewsServer()
-    env={'name':'编辑配置','version':global_env()}
+    env={'name':'编辑配置','version':global_env(),'typed':'这里想显示环境区分'}
     if req.method == 'GET':
         defaultContent=projectConf(pid=id).defaultProJectConf()
         response={'DEFAULT':defaultContent}
@@ -82,6 +82,7 @@ def confPush(req):
     response=projectConf(pid=id).findProjectConf()
     keyName=response['keyName']
     value=projectConf(pid=id).defaultProJectConf()[0]['confText']
+   
     try:
         etcdClient().writeValue(keyName,value)
     except etcd.EtcdConnectionFailed,e:

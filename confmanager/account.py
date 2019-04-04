@@ -36,16 +36,19 @@ def channgePwd(req):
             response['data']='您的确认密码和新密码不匹配'
         else:
             new_password=new_password1
-            user = auth.authenticate(username=username, password=old_password)
-            if user is not None and user.is_active:
-                user.set_password(new_password)
-                user.save()
-                response['data']='密码修改成功'     
+            if len(new_password)>8:
+                user = auth.authenticate(username=username, password=old_password)
+                if user is not None and user.is_active:
+                    user.set_password(new_password)
+                    user.save()
+                    response['data']='密码修改成功'     
+                else:
+                    print old_password
+                    print new_password1
+                    print repeat_password
+                    response['data']='原密码错误'
             else:
-                print old_password
-                print new_password1
-                print repeat_password
-                response['data']='原密码错误'
+                response['data']='密码长度小于8位'
         return render(req,'channge.html',{'response':response})
     else:
         return render(req,'channge.html')
