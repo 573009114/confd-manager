@@ -14,17 +14,19 @@ def global_env():
 
 @login_required
 def serverList(req):
+    env={'name':'IP列表'}
     if req.method == 'GET':
         response=viewsServer()
-        return render(req,'server-list.html',{'response':response})
+        return render(req,'server-list.html',{'response':response,'env':env})
 
 @login_required
 def serverAdd(req):
+    env={'name':'IP添加'}
     if req.method == 'POST':
         serverip=req.POST.get('serverip')
         response=projectConf(serverip=serverip).addServer()
         return HttpResponse('<script type="text/javascript">alert("添加完成");location.href="/config/server/"</script>')
-    return render(req,'server-add.html')
+    return render(req,'server-add.html',{'env':env})
 
 
 @login_required
