@@ -93,7 +93,6 @@ def confPush(req):
 def projectAdd(req):
     env='新增项目'
     serverlist=viewsServer()
-
     if req.method == 'POST':
         typed=req.POST.get('type')
         env_type=req.POST.get('envtype')
@@ -104,12 +103,17 @@ def projectAdd(req):
         sid=req.POST.getlist('sid[]')
         keyname=('/%s/%s/%s/%s' %(env_type,serverName,cluster,vhost))
         kid=projectConf(typed=typed,env_type=env_type,projectName=projectName,serverName=serverName,vhost=vhost,keyname=keyname).addProJectConf()   
-        if kid:
-            # 关联keyid与serverid
-            addHostid(sid,kid)
-            return HttpResponse('<script type="text/javascript">alert("项目添加完成");location.href="/config/project/add"</script>')
+
+        if kid is not False:
+            if len(sid) != 0:
+                # 关联keyid与serverid
+                addHostid(sid,kid)
+                response=HttpResponse('<script type="text/javascript">alert("项目添加完成");location.href="/config/project/add"</script>')
+            else:
+                response=HttpResponse('<script type="text/javascript">alert("警告：IP未关联,项目添加成功");location.href="/config/project/add"</script>')
         else:
-            return HttpResponse('<script type="text/javascript">alert("项目重复,添加失败");location.href="/config/project/add"</script>')
+            response=HttpResponse('<script type="text/javascript">alert("错误：重复添加");location.href="/config/project/add"</script>')
+        return response
     return render(req,'project-add.html',{'env':env,'serverlist':serverlist})
 
 # 项目关联
@@ -133,7 +137,7 @@ def projectDel(req):
     obtainKey=projectConf(pid=id).findProjectConf()
     try:
         keyName=obtainKey['keyName']
-        #delEtcd=etcdClient().delKey(keyName)
+        #delEtcd=etcdClient().delKey(keyName)   #推送到etcd
         response=projectConf(pid=id).delProJectConf()
     except:
         response=projectConf(pid=id).delProJectConf()
