@@ -155,4 +155,3 @@ def projectRollback(req):
         confContent=req.POST.get('configText')
         response=projectConf(pid=pid,version=global_env(),confContent=confContent).CreateVersion()
         return HttpResponse('<script type="text/javascript">alert("配置回滚完成，并生成新的版本号");location.href="/config/project/"</script>')
-    
