@@ -2,6 +2,11 @@
 # -*- coding: UTF-8 -*-
 import MySQLdb,socket
 import os,sys
+import urllib
+import urllib2
+import shutil
+
+
 
 class mysqlClient:
     def __init__(self):
@@ -28,7 +33,16 @@ class mysqlClient:
 class templateConf:
     def __init__(self):
         self.ip = socket.gethostbyname(socket.gethostname())
-        self.response=mysqlClient().viewSQL()      
+        self.response=mysqlClient().viewSQL() 
+        url='https://github.com/kelseyhightower/confd/releases/download/v0.16.0/confd-0.16.0-linux-amd64'
+        if os.path.isfile('/usr/bin/confd'):
+            print 'confd file is exist...'
+        else:
+            urllib.urlretrieve(url, "confd-0.16.0-linux-amd64")
+            shutil.move('confd-0.16.0-linux-amd64','/usr/bin/confd')
+            print 'confd create success'
+        
+    
             
     def Toml(self):
         for key in self.response:
@@ -37,7 +51,7 @@ class templateConf:
            toml='''
 [template]
 src = "{vhosts}.tmpl"
-dest = "/opt/openresty/nginx/conf/vhost/{vhosts}.conf"
+dest = "/opt/openresty/nginx/conf/vhost/{vhosts}-nginx.conf"
 keys =[
       "{keyname}",
 ]
@@ -62,7 +76,6 @@ reload_cmd = "/opt/openresty/nginx/sbin/nginx -s reload"
            handle = open('/opt/confd/templates/%s.tmpl' % vhosts,'w')
            handle.write(tmpl)
            handle.close()
-
 
 def main():
     os.system('mkdir /opt/confd/conf.d/ && rm -fr /opt/confd/conf.d/*.toml')
