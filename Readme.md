@@ -104,4 +104,11 @@ DATABASES = {
 ![image](https://github.com/573009114/confd-manager/blob/master/pic/zhanshi.jpg)
 
 
+#### 7、客户端安装
+```
+客户端安装：
+yum install epel-release -y
+yum install MySQL-python.x86_64 -y
+
+```
  
