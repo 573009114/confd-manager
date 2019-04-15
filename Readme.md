@@ -109,6 +109,6 @@ DATABASES = {
 客户端安装：
 yum install epel-release -y
 yum install MySQL-python.x86_64 -y
-
+运行confdAgent
 ```
  
