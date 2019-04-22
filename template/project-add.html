@@ -52,20 +52,19 @@
                                             <input type="text" class="form-control"  onkeyup="this.value=this.value.replace(/\s+/g,'')" name="domain" placeholder="域名vhost (同一环境类型，不可重名)"  required="required">
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label  class="col-sm-2 control-label"><code>部署IP</code></label>
+									
+									 <div class="form-group">
+                                    	<label for="inputEmail3" class="col-sm-2 control-label"><code>部署主机组</code></label>
 										<div class="col-sm-10">
-													<div class="checkbox">
-													{%for ip in serverlist%}
-														<label style="width:140px;margin-left:20px">
-														    <input name="public" type="hidden" value="false" id="public">
-															<input type="checkbox" name="sid[]" value="{{ip.id}}" >{{ip.servearip}}
-														</label>														
-														{%endfor%}
-													</div>	
+											<select class="btn btn-default dropdown-toggle"  name="groupid" onchange="show_sub(this.options[this.options.selectedIndex].value)">
+											  {%for name in response.groups %}
+											  <option value="{{name.id}}">{{name.groupname}}</option>
+											  {%endfor%}
+											</select>
+											 
 										</div>
-									</div>
+                                    </div> 
+ 
                                     <div class="form-group" style="margin-bottom:0">
                                         <div class="col-sm-offset-2 col-sm-10 text-right">
 										    <button type="submit" id='entry' onclick="formSubmit()" class="btn btn-primary">保存</button>

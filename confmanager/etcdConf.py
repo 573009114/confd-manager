@@ -4,7 +4,7 @@ import etcd
 
 class etcdClient:
     def __init__(self):
-        self.client=etcd.Client(host='192.168.44.138', port=4001)
+        self.client=etcd.Client(host='10.52.15.200', port=4001)
 
     def viewValue(self,keyName):
         try:
@@ -14,7 +14,7 @@ class etcdClient:
             result='Etcd key is not found ...'
 
     def writeValue(self,keyName,Value):
-       result=self.client.write('%s' % keyName,'%s' % Value).value
+       result=self.client.write('%s' % keyName,'%s' % Value,recursive=True).value
        return result
 
     def delKey(self,keyName):
@@ -22,5 +22,3 @@ class etcdClient:
 
         return result
 
-
- 

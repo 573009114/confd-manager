@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-     {% load staticfiles %}
      {% include "head.html" %}
+ 
     <body class="cm-no-transition cm-2-navbar">
          {% include "menu.html" %}
         {% include "header.html" %}
@@ -40,9 +40,23 @@
                                             <input type="text" class="form-control"  name="domain"  value='{{response.vhosts}}' readonly='readonly'>
                                         </div>
                                     </div>
+									
+									<div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label"><code>当前已关联ip</code></label>
+										 <div class="col-sm-10"> 
+										      <select class="input-xlarge"  style="width:100%" multiple="multiple" >
+											  {%for ip in joinip%}
+											  <option disabled="disabled">{{ip.sid__servearip}}</option>
+											  {%endfor%}
+											  </select> 
+										   </div>
+										  
+                                      
+                                    </div>
 
                                     <div class="form-group">
                                         <label  class="col-sm-2 control-label"><code>关联IP</code></label>
+									 
 										<div class="col-sm-10">
 													<div class="checkbox">
 													{%for ip in serverlist%}
@@ -74,6 +88,7 @@
 				document.getElementById("entry").submit()
 			}
 		</script>
+ 
           {% include "scripts.html" %}
     </body>
 </html>

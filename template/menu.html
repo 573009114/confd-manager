@@ -1,8 +1,8 @@
 	   <!--MENU START-->
         <div id="cm-menu">
-            <nav class="cm-navbar cm-navbar-primary">
+            <nav class="cm-navbar cm-navbar-midnight">
                 <div class="cm-flex"><a href="/config/project/" class="cm-logo"></a></div>
-                <div class="btn btn-primary md-menu-white" data-toggle="cm-menu"></div>
+                <div class="btn md-menu-white btn-midnight" data-toggle="cm-menu"></div>
             </nav>
             <div id="cm-menu-content">
                 <div id="cm-menu-items-wrapper">
@@ -17,8 +17,16 @@
                                      
                                 </ul>
                             </li>
+                            <li class="cm-submenu">
+                                <a class="sf-folder">分组管理<span class="caret"></span></a>
+                                <ul>
+                                    <li><a href="/config/group/add">组添加</a></li>
+									<li><a href="/config/group/">分组列表</a></li>
+                                </ul>
+                            </li>
+
 							<li class="cm-submenu">
-                                <a class="sf-window-layout">IP管理<span class="caret"></span></a>
+                                <a class="sf-device-laptop">IP管理<span class="caret"></span></a>
                                 <ul>
                                     <li><a href="/config/server/add">IP添加</a></li>
 									<li><a href="/config/server/">IP列表</a></li>
@@ -26,8 +34,9 @@
                             </li>
 							
 							
+							
                             <li class="cm-submenu">
-                                <a class="sf-brick">配置管理 <span class="caret"></span></a>
+                                <a class="sf-wrench">配置管理 <span class="caret"></span></a>
                                 <ul>
                                     <li><a href="/config/project/?typed=product">线上环境</a></li>
                                     <li><a href="/config/project/?typed=develop">研发环境</a></li>
@@ -35,7 +44,7 @@
                                 </ul>
                             </li>
                             <li class="cm-submenu">
-                                <a class="sf-cat">用户管理 <span class="caret"></span></a>
+                                <a class="sf-user-male">用户管理 <span class="caret"></span></a>
                                 <ul>
                                     {% comment %} <li><a href="#">个人信息</a></li> {% endcomment %}
                                     <li><a href="/channgepwd/">修改密码</a></li>

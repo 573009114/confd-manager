@@ -14,21 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from confmanager import index,views,account
+from confmanager import project,views,account,group,server
 
 urlpatterns = [
-    url(r'^$',views.dashboard,name='dashboard'),
+#    url(r'^$',views.dashboard,name='dashboard'),
+    url(r'^$',project.viewConfig,name='dashboard'),
     url(r'^login/$',account.login,name='login'),
     url(r'^logout/$',account.logout,name='logout'),
     url(r'^channgepwd/$',account.channgePwd,name='channgepwd'),
-    url(r'^config/project/$',index.viewConfig),
-    url(r'^config/project/del',index.projectDel,name='del'),
-    url(r'^config/project/add',index.projectAdd,name='add'),
-    url(r'^config/project/edit',index.projectEdit,name='edit'),
-    url(r'^config/project/channge',index.projectChannge,name='channge'),
-    url(r'^config/project/rollback',index.projectRollback,name='rollback'),
-    url(r'^config/project/push',index.confPush,name='push'),
-    url(r'^config/server/$',index.serverList,name='serverlist'),
-    url(r'^config/server/add',index.serverAdd,name='serveradd'),
-    url(r'^config/server/del',index.serverDel,name='serverdel'),
+    url(r'^config/project/$',project.viewConfig),
+    url(r'^config/project/del',project.projectDel,name='del'),
+    url(r'^config/project/add',project.projectAdd,name='add'),
+    url(r'^config/project/edit',project.projectEdit,name='edit'),
+    url(r'^config/project/channge',project.projectChannge,name='channge'),
+    url(r'^config/project/rollback',project.projectRollback,name='rollback'),
+    url(r'^config/project/push',project.confPush,name='push'),
+    url(r'^config/server/$',server.serverList,name='serverlist'),
+    url(r'^config/server/add',server.serverAdd,name='serveradd'),
+    url(r'^config/server/del',server.serverDel,name='serverdel'),
+    url(r'^config/group/$',group.groupList,name='grouplist'),
+    url(r'^config/group/add',group.addGroup,name='groupadd'),
+    url(r'^config/group/del',group.delGroup,name='groupdel'),
+    url(r'^config/group/push',group.pushGroupKey,name='pushgroup'),
+    url(r'^config/group/setgroupconfig',group.setGroupConfig,name='setgroupconfig'),
 ]

@@ -43,9 +43,6 @@ def channgePwd(req):
                     user.save()
                     response['data']='密码修改成功'     
                 else:
-                    print old_password
-                    print new_password1
-                    print repeat_password
                     response['data']='原密码错误'
             else:
                 response['data']='密码长度小于8位'

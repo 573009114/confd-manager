@@ -12,28 +12,28 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">IP列表</div>
+                            <div class="panel-heading">分组列表</div>
                             <div class="panel-body">
-                                <p style="margin-bottom:0">本页包含各项目的<code>IP列表信息</code></p>
+                                <p style="margin-bottom:0">本页包含各项目的<code>分组列表信息</code></p>
                             </div>
                             <table class="table">
                                 <thead>
                                     <tr class="active">
-                                        <th>#</th>
-										<th><code>IP地址</code></th>
-										<th><code>归属组</code></th>
+                                        <th><code>组ID号</code></th>
+										<th><code>组名</code></th>
+										<th><code>推送</code></th>
+										<th><code>编辑</code></th>
 										<th><code>操作</code></th>										
                                     </tr>
                                 </thead>
                                 <tbody>
-							   
-							        {%for v in response %} 
+							        {%for i in response %} 
                                     <tr scope="row">
-                                        <th scope="row">#</th>
-                                        <td>{{v.servearip}}</td>
-                                        <td>{{v.group__groupname}}</td>										
-										<td><a href="/config/server/del/?pid={{v.id}}" class="btn btn-defaultbtn  btn-danger btn-xs" onclick="return del()">删除</A></td>
-										
+                                        <th>{{i.id}}</th>
+                                        <td>{{i.groupname}}</td>
+										<td><a href="/config/group/pushgroup?pid={{i.id}}" class="btn btn-yellow btn-xs" >推送配置</a></td>
+                                        <td><a href="/config/group/setgroupconfig/?pid={{i.id}}" class="btn btn-primary btn-xs" >nginx.conf</a></td>										
+										<td><a href="/config/group/del/?pid={{i.id}}" class="btn btn-defaultbtn  btn-danger btn-xs" onclick="return del()">删除</A></td>
                                     </tr>
 					                 {%endfor%}
                                 </tbody>

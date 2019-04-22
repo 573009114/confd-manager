@@ -19,9 +19,15 @@
                             <input type="text" class="form-control" placeholder="{{response.VERSION.1.vhosts}}" readonly="readonly">
                              						
                         </div>
-                        <label>配置内容</label> 
-						<pre id='editor' >{{response.DEFAULT.0.confText }}</pre>
-						<textarea name="configText" style="display:none" ></textarea>
+						
+                           <label>vhost</label> 
+							<pre id='editor1'>{{response.DEFAULT.0.confText}}</pre>
+							<textarea name="configText" style="display:none" ></textarea>
+							
+						    <hr>
+                            <label>rewrite</label> 
+							<pre id='editor2'>{{response.DEFAULT.0.rewrite}}</pre>
+							<textarea name="rewrite" style="display:none" ></textarea>
                     
                  
                         <div class="form-group text-right" style="margin-top:20px">
@@ -41,17 +47,26 @@
           {% include "scripts.html" %}
 	
 		<script src="{% static 'assets/js/aceEdit/ace.js' %}" type="text/javascript" charset="utf-8"></script> 	
-		<!--ace module-->
- 		 <script>
-				var editor = ace.edit("editor");
-				editor.setTheme("ace/theme/monokai");
-				editor.getSession().setMode("ace/mode/drools"); // 一定要使用定义好的Mode			
-		</script> 
+        <script>
+			 
+				var editor1 = ace.edit("editor1");
+				var editor2 = ace.edit("editor2");
+		 
+				editor1.setTheme("ace/theme/monokai");
+				editor1.getSession().setMode("ace/mode/drools"); // 一定要使用定义好的Mode	
+				
+				editor2.setTheme("ace/theme/monokai");
+				editor2.getSession().setMode("ace/mode/drools"); // 一定要使用定义好的Mode					
+		</script>
+		  
  
 		<!--提交-->
 		<script type="text/javascript">
 			function formSubmit() {
-				$("[name=configText]").val(editor.getValue());
+				$("[name=configText]").val(editor1.getValue());
+				$("[name=rewrite]").val(editor2.getValue());
+				//console.log($("[name=configText]").val())
+		        //console.log($("[name=rewrite]").val())
 				$("#frmSave").submit();
 				//document.getElementById("").submit()
 			}
