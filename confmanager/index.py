@@ -66,7 +66,7 @@ def viewConfig(req):
 def projectChannge(req):
     id=req.GET.get('pid')
     serverlist=viewsServer()
-    env={'name':'编辑配置','version':global_env(),'typed':'这里想显示环境区分'}
+    env={'name':'编辑配置','version':global_env(),'typed':'详情'}
     if req.method == 'GET':
         defaultContent=projectConf(pid=id).defaultProJectConf()
         response={'DEFAULT':defaultContent}
