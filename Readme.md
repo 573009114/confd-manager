@@ -101,6 +101,7 @@ DATABASES = {
 ```
 
 #### 6、效果展示
+![image](https://github.com/573009114/confd-manager/blob/master/pic/index.jpg)
 ![image](https://github.com/573009114/confd-manager/blob/master/pic/zhanshi.jpg)
 
 
