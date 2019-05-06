@@ -2,9 +2,11 @@
 from __future__ import unicode_literals
 from django.http import JsonResponse,HttpResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 from viewConf import *
 
-
+@login_required
 def dashboard(req):
     env={'name':'系统主页'}
     response={
