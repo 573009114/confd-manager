@@ -42,6 +42,80 @@
                         </div>
                     </div>
                 </div>
+            <!---->
+                <div class="row cm-fix-height">
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                        <a href="/" class="panel panel-default thumbnail cm-thumbnail">
+                            <div class="panel-body text-center">
+                                <span class="svg-48">
+                                    <img src="{% static  'assets/img/sf/dashboard.svg' %}" alt="dashboard">
+                                </span>
+                                <h4>Dashboard</h4> <small>仪表盘</small>
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                        <a href="/config/project/add" class="panel panel-default thumbnail cm-thumbnail">
+                            <div class="panel-body text-center">
+                                <span class="svg-48">
+                                    <img src="{% static  'assets/img/sf/notepad.svg' %}" alt="notepad">
+                                </span>
+                                <h4>项目增加</h4> <small>增加维护web项目.</small>
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                        <a href="/config/group/add" class="panel panel-default thumbnail cm-thumbnail">
+                            <div class="panel-body text-center">
+                                <span class="svg-48">
+                                    <img src="{% static  'assets/img/sf/brick.svg' %}" alt="brick">
+                                </span>
+                                <h4>分组添加</h4> <small>增加服务器分组</small>
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                        <a href="/config/server/add" class="panel panel-default thumbnail cm-thumbnail">
+                            <div class="panel-body text-center">
+                                <span class="svg-48">
+                                    <img src="{% static  'assets/img/sf/window-layout.svg' %}" alt="window-layout">
+                                </span>
+                                <h4>IP增加</h4> <small>归类服务器IP信息对应分组，并绑定nginx主配置.</small>
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                        <a href="/config/project/" class="panel panel-default thumbnail cm-thumbnail">
+                            <div class="panel-body text-center">
+                                <span class="svg-48">
+                                    <img src="{% static  'assets/img/sf/cat.svg' %}" alt="cat">
+                                </span>
+                                <h4>配置管理</h4> <small>编辑服务配置</small> 
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                        <a href="/channgepwd/" class="panel panel-default thumbnail cm-thumbnail">
+                            <div class="panel-body text-center">
+                                <span class="svg-48">
+                                    <img src="{% static  'assets/img/sf/lock-open.svg' %}" alt="lock-open">
+                                </span>
+                                <h4>用户管理</h4> <small>修改用户密码.</small>
+
+                            </div>
+                        </a>
+                    </div>
+                </div
+
+			<!---->
+
+
+
+
             </div>
 			{% include "footer.html" %}
         </div>

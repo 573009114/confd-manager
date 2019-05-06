@@ -15,7 +15,7 @@ def login(req):
         if user and user.is_active:
             auth.login(req,user)
             req.session['username'] = username
-            return HttpResponseRedirect('/config/project/')
+            return HttpResponseRedirect('/')
         else:
             return render(req,'login.html',{"msg":"用户名不存在，或者密码错误！"}) 
 
