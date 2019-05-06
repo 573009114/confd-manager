@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from models import KeyList,Servers,HostAlias,VersionId,Groups
-
+from django.db.models import Count
 from django.core import serializers
 import json
  
@@ -193,3 +193,20 @@ def updateHostid(sid,kid):
         for serializers in sid:
             response=HostAlias.objects.create(sid_id=serializers,kid_id=kid)
     return response
+
+class TotalIndex:
+    def __init__(self):
+        self.ipnum=0
+        self.pronum=0
+        self.groupnum=0
+
+    def select_ipcount(self):
+        self.ipnum=Servers.objects.aggregate(Count('servearip'))
+        return self.ipnum
+
+    def select_pronum(self):
+        self.pronum=KeyList.objects.aggregate(Count('projectName'))
+        return self.pronum
+    def select_groupnum(self):
+        self.groupnum=Groups.objects.aggregate(Count('groupname'))
+        return self.groupnum

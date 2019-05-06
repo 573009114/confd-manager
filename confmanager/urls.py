@@ -18,7 +18,7 @@ from confmanager import project,views,account,group,server
 
 urlpatterns = [
 #    url(r'^$',views.dashboard,name='dashboard'),
-    url(r'^$',project.viewConfig,name='dashboard'),
+    url(r'^$',views.dashboard,name='dashboard'),
     url(r'^login/$',account.login,name='login'),
     url(r'^logout/$',account.logout,name='logout'),
     url(r'^channgepwd/$',account.channgePwd,name='channgepwd'),

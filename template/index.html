@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+     {% load staticfiles %}
+     {% include "head.html" %}
+    <body class="cm-no-transition cm-2-navbar">
+         {% include "menu.html" %}
+         {% include "header.html" %}
+        <div id="global">
+		
+		   <div class="container-fluid cm-container-white">
+                <h2 style="margin-top:0;">欢迎来到 confd 配置管理中心 !</h2> 
+                <p>本系统是一个基于confd+etcd+django开发的一款配置管理平台，主要集中管控nginx配置文件;</p>
+				<p>confd 配置管理平台共分为3个基本块，项目配置，分组配置，ip配置;</p>
+				<p>系统组件分为服务端和客户端，其中服务端主要为web、etcd、mysql服务，客户端为一个confAgent程序！ </p>
+            </div>
+            <div class="container-fluid">
+ 
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">IP数量</div>
+                            <div class="panel-body">
+                                <div id="d1-c1" style="height:150px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">项目数量</div>
+                            <div class="panel-body">
+                                <div id="d1-c2" style="height:150px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">分组数</div>
+                            <div class="panel-body">
+                                <div id="d1-c3" style="height:150px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			{% include "footer.html" %}
+        </div>
+            {% include "scripts.html" %}
+			<script src="{% static  'assets/js/lib/d3.min.js' %}"></script>
+            <script src="{% static  'assets/js/lib/c3.min.js' %}"></script>
+		    <script>
+			$(function(){
+				this.makeGauge = function(selector, value, color)
+				{
+				c3.generate({
+					bindto: selector,
+					data: {
+					columns: [
+						['data', value]
+					],
+					type: 'gauge'
+					},
+					tooltip: {
+					show: false
+					},
+					gauge: {
+					label: {
+						format: function(value, ratio) {
+						return value;
+						},
+						show: false
+					},
+					min: 0,
+					max: 100,
+					units: ' %',
+					width: 50
+					},
+					color: {
+					pattern: [color, color, color], // the 3 color levels for the percentage values.
+					}
+				});
+				};
+
+				this.makeGauge('#d1-c1', {{response.data1.servearip__count}}, '#1abc9c');
+				this.makeGauge('#d1-c2', {{response.data2.projectName__count}}, '#3498db');
+				this.makeGauge('#d1-c3', {{response.data3.groupname__count}}, '#f39c12');
+
+			});
+			</script> 
+    </body>
+</html>
