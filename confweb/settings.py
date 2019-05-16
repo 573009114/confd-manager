@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import mimetypes
+import ldap
+from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
 
 mimetypes.add_type("image/svg+xml", ".svg", True) 
 mimetypes.add_type("image/svg+xml", ".svgz", True) 
@@ -78,27 +80,12 @@ WSGI_APPLICATION = 'confweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#      'default': {
-#          'ENGINE': 'django.db.backends.mysql',
-#          'NAME': 'confdweb',
-#          'USER':'confd',
-#          'PASSWORD':'confdmanager',
-#          'HOST':'127.0.0.1',
-#          'PORT':'3306',
-#         #  'OPTIONS':{
-#         #     'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
-#         #     'charset':'utf8mb4',
-#         # },
-#      }
-# }
-
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'confd',
-         'USER':'root',
-         'PASSWORD':'haowen',
+         'NAME': 'confdweb',
+         'USER':'confd',
+         'PASSWORD':'confdmanager',
          'HOST':'127.0.0.1',
          'PORT':'3306',
         #  'OPTIONS':{
@@ -108,6 +95,34 @@ DATABASES = {
      }
 }
 
+# LDAP setting
+## auth ldap
+
+
+AUTHENTICATION_BACKENDS = (
+    'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# Baseline configuration.
+AUTH_LDAP_SERVER_URI = 'ldap://ldap.xxx.com.cn'
+
+AUTH_LDAP_BIND_DN = 'openvpn'
+AUTH_LDAP_BIND_PASSWORD = 'asQW!@34oV'
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+    'OU=xxx-USERS,DC=xxx,DC=com,DC=cn',
+    ldap.SCOPE_SUBTREE,
+    '(sAMAccountName=%(user)s)')
+
+# Populate the Django user from the LDAP directory.
+AUTH_LDAP_USER_ATTR_MAP = {
+    'first_name': 'givenName',
+    'last_name': 'sn',
+    'email': 'mail',
+}
+
+# This is the default, but I like to be explicit.
+AUTH_LDAP_ALWAYS_UPDATE_USER = True
 
 
 # Password validation
