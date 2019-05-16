@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from django.http import JsonResponse,HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import auth
+from django.contrib.auth.forms import AuthenticationForm
+
 
 # 登录模块
 def login(req):
